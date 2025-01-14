@@ -1,8 +1,11 @@
 package com.daromi.playbook.tracker.domain
 
+import java.util.SortedMap
+
 class Show private constructor(
     private val id: ShowId,
     private val name: ShowName,
+    private val seasons: SortedMap<SeasonNumber, Season> = sortedMapOf(),
 ) {
     companion object {
         @JvmStatic
@@ -17,6 +20,10 @@ class Show private constructor(
         }
     }
 }
+
+class Season private constructor(
+    private val number: SeasonNumber,
+)
 
 @JvmInline
 value class ShowId(
@@ -44,4 +51,20 @@ private value class ShowName(
             return ShowName(value)
         }
     }
+}
+
+@JvmInline
+private value class SeasonNumber(
+    val value: Int,
+) : Comparable<SeasonNumber> {
+    companion object {
+        @JvmStatic
+        fun from(value: Int): SeasonNumber? {
+            if (value <= 0) return null
+
+            return SeasonNumber(value)
+        }
+    }
+
+    override fun compareTo(other: SeasonNumber): Int = this.value - other.value
 }
