@@ -20,12 +20,46 @@ class Show private constructor(
             return Show(id, name)
         }
     }
+
+    fun addSeason(rawNumber: Int): Boolean {
+        val number = SeasonNumber.from(rawNumber) ?: return false
+
+        // Ensure the season does not already exist
+        if (this.seasons.containsKey(number)) {
+            return false
+        }
+
+        // Ensure the first season is added first
+        if (this.seasons.isEmpty() && number != SeasonNumber.FIRST) {
+            return false
+        }
+
+        // Ensure seasons are added sequentially
+        if (this.seasons.isNotEmpty()) {
+            val last = this.seasons.lastKey()
+
+            if (last.next() != number) {
+                return false
+            }
+        }
+
+        val season = Season.from(number)
+
+        this.seasons[number] = season
+
+        return true
+    }
 }
 
 private class Season private constructor(
     private val number: SeasonNumber,
     private val episodes: SortedMap<EpisodeNumber, Episode> = sortedMapOf(),
-)
+) {
+    companion object {
+        @JvmStatic
+        fun from(number: SeasonNumber): Season = Season(number)
+    }
+}
 
 private data class Episode(
     val number: EpisodeNumber,
@@ -66,6 +100,8 @@ private value class SeasonNumber(
     val value: Int,
 ) : Comparable<SeasonNumber> {
     companion object {
+        val FIRST: SeasonNumber = SeasonNumber(1)
+
         @JvmStatic
         fun from(value: Int): SeasonNumber? {
             if (value <= 0) return null
@@ -73,6 +109,8 @@ private value class SeasonNumber(
             return SeasonNumber(value)
         }
     }
+
+    fun next(): SeasonNumber = SeasonNumber(this.value + 1)
 
     override fun compareTo(other: SeasonNumber): Int = this.value - other.value
 }
