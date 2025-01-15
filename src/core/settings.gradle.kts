@@ -1,3 +1,5 @@
 rootProject.name = "core"
 
-include("tracker")
+include("app")
+include("shows")
+include("tracks")
