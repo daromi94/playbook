@@ -43,7 +43,7 @@ class Show private constructor(
             }
         }
 
-        val season = Season.from(number)
+        val season = Season.create(number)
 
         this.seasons[number] = season
 
@@ -57,7 +57,7 @@ private class Season private constructor(
 ) {
     companion object {
         @JvmStatic
-        fun from(number: SeasonNumber): Season = Season(number)
+        fun create(number: SeasonNumber): Season = Season(number)
     }
 }
 
@@ -100,6 +100,7 @@ private value class SeasonNumber(
     val value: Int,
 ) : Comparable<SeasonNumber> {
     companion object {
+        @JvmStatic
         val FIRST: SeasonNumber = SeasonNumber(1)
 
         @JvmStatic
