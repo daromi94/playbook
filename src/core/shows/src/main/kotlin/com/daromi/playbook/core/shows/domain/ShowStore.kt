@@ -1,4 +1,4 @@
-package com.daromi.playbook.tracker.domain
+package com.daromi.playbook.core.shows.domain
 
 interface ShowStore {
     fun save(show: Show)
