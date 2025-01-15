@@ -1,4 +1,4 @@
-package com.daromi.playbook.tracker
+package com.daromi.playbook.core.app
 
 fun main() {
     println("Hello, World")
