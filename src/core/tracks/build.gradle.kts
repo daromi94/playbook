@@ -1,6 +1,6 @@
 plugins { kotlin("jvm") version "2.1.0" }
 
-group = "com.daromi.playbook.tracker"
+group = "com.daromi.playbook.core.tracks"
 
 version = "0.1.0-SNAPSHOT"
 
