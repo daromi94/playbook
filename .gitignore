@@ -1,18 +1,16 @@
 # Gradle
-
-## Build
 build
 .gradle
 
+# Terraform
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
 # Editors
-
-## IntelliJ IDEA
 .idea
-
-## Visual Studio Code
 .vscode
 
 # OS
-
-## macOS
 .DS_Store
